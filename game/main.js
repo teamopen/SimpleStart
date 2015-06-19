@@ -52,10 +52,6 @@ function create(){
   player.body.bounce.set(1);
   player.body.immovable = true;
 
-  //update the ball position
-  ball.x = game.world.centerX - ball.width /2;
-  ball.y = game.world.centerX + 200 - ball.height;
-
   // Initialize the blocks
   blocks = game.add.group();
   blocks.enableBody = true;
@@ -67,8 +63,6 @@ function create(){
 
 function update(){
   cursors = game.input.keyboard.createCursorKeys();
-
-  //player.body.velocity.x = 0;
   
   // Moving to the left
   if((cursors.left.isDown || game.input.keyboard.isDown(65)) && player.x > 0) {
@@ -124,12 +118,10 @@ function boardgen(){
 
 function setBall() {
   
-  
-   ball.body.velocity.x = -350;
-   ball.body.velocity.y = 75;
-   ball.reset(0, 0);
-   
-  
+   ball.body.velocity.x = 300;
+   ball.body.velocity.y = -150;
+   ball.x = game.world.centerX - ball.width /2;
+   ball.y = game.world.centerX + 200 - ball.height;
 }
 
 function ballFalls() {
