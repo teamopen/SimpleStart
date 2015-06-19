@@ -17,26 +17,34 @@ var cursors;
 var lives = 2;
 
 function create(){
-  // Game init
+  // Game initialization
   game.physics.startSystem(Phaser.Physics.ARCADE);
   game.physics.arcade.checkCollision.down = false;
   
   // Initialize the Ball
   ball = game.add.sprite(0, 0, 'ball');
+  
   game.physics.enable(ball, Phaser.Physics.ARCADE);
+  
   ball.body.bounce.set(1);
   ball.body.collideWorldBounds = true;
+  
   setBall();
+  
+  ball.events.onOutOfBounds.add(ballFalls, this)
 
-  //Initialize the Player's paddle
+  // Initialize the Player's paddle
   player = game.add.sprite(0, 0, 'bat');
+  
   game.physics.enable(player, Phaser.Physics.ARCADE);
+  
   player.x = game.world.centerX - (player.width / 2);
   player.y = game.world.centerY+200;
+  
   player.body.bounce.set(1);
   player.body.immovable = true;
 
-  //Initialize the blocks
+  // Initialize the blocks
   blocks = game.add.group();
   blocks.enableBody = true;
   blocks.physicsBodyType = Phaser.Physics.ARCADE;
@@ -48,12 +56,14 @@ function create(){
 function update(){
   cursors = game.input.keyboard.createCursorKeys();
 
-  player.body.velocity.x = 0;
-  //moving to the left
+  //player.body.velocity.x = 0;
+  
+  // Moving to the left
   if((cursors.left.isDown || game.input.keyboard.isDown(65)) && player.x > 0) {
     player.x -= 4;
   }
-  //moving to the right
+  
+  // Moving to the right
   if((cursors.right.isDown || game.input.keyboard.isDown(68)) && player.x < game.world.width - player.width){
     player.x += 4;
   }
@@ -80,11 +90,11 @@ function boardgen(){
 
 function setBall() {
   
-  /* filler 
-   ball.body.velocity.x =
-   ball.body.velocity.y =
-   ball.reset(x, y);
-   */
+  
+   ball.body.velocity.x = -350
+   ball.body.velocity.y = 75
+   ball.reset(0, 0);
+   
   
 }
 
@@ -92,8 +102,16 @@ function ballFalls() {
   lives--;
   
   if(lives == 0) {
-    // Filler for game over
+    GameOver()
   } else {
-    startBall()
+    setBall()
   }
+}
+
+function GameOver() {
+  ball.body.velocity.x = 0;
+  ball.body.velocity.y = 0;
+  
+  game.add.text(game.world.centerX, game.world.centerY, 'You lost!', {font: '28px Arial', fill: '#ff0000', align: 'center'})
+  
 }
