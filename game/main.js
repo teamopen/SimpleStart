@@ -14,14 +14,19 @@ var blocks;
 var player;
 var ball;
 var cursors;
-function create(){
-  game.physics.startSystem(Phaser.Physics.ARCADE);
+var lives = 2;
 
+function create(){
+  // Game init
+  game.physics.startSystem(Phaser.Physics.ARCADE);
+  game.physics.arcade.checkCollision.down = false;
+  
   // Initialize the Ball
-  ball = game.add.sprite(0, 64, 'ball');
+  ball = game.add.sprite(0, 0, 'ball');
   game.physics.enable(ball, Phaser.Physics.ARCADE);
   ball.body.bounce.set(1);
   ball.body.collideWorldBounds = true;
+  setBall();
 
   //Initialize the Player's paddle
   player = game.add.sprite(0, 0, 'bat');
@@ -54,6 +59,7 @@ function update(){
   }
 }
 
+<<<<<<< HEAD
 function boardgen(){
   
   var unit = 32;
@@ -72,3 +78,24 @@ function boardgen(){
   }
   
 }
+=======
+function setBall() {
+  
+  /* filler 
+   ball.body.velocity.x =
+   ball.body.velocity.y =
+   ball.reset(x, y);
+   */
+  
+}
+
+function ballFalls() {
+  lives--;
+  
+  if(lives == 0) {
+    // Filler for game over
+  } else {
+    startBall()
+  }
+}
+>>>>>>> 487ced421d0caaf53f18f97944a8bc7e8314b5fd
