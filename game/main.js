@@ -81,22 +81,31 @@ function random(start, end) {
   // Defaults to 0 to end, the number you put for start will be subtracted or added to 0
   return Math.floor((Math.random() * end) + start)
 }
+
 function boardgen(){
   
   var unit = 32;
   
-  var boardState = [[random(1, 6), random(1, 6), random(1, 6), random(1, 6), random(1, 6), random(1, 6), random(1, 6), random(1, 6), random(1, 6), random(1, 6)],
-                    [random(1, 6), random(1, 6), random(1, 6), random(1, 6), random(1, 6), random(1, 6), random(1, 6), random(1, 6), random(1, 6), random(1, 6)],
-                    [random(1, 6), random(1, 6), random(1, 6), random(1, 6), random(1, 6), random(1, 6), random(1, 6), random(1, 6), random(1, 6), random(1, 6)],
-                    [random(1, 6), random(1, 6), random(1, 6), random(1, 6), random(1, 6), random(1, 6), random(1, 6), random(1, 6), random(1, 6), random(1, 6)],
-                    [random(1, 6), random(1, 6), random(1, 6), random(1, 6), random(1, 6), random(1, 6), random(1, 6), random(1, 6), random(1, 6), random(1, 6)]];
+  var boardState = [[random(1, 4), random(1, 4), random(1, 4), random(1, 4), random(1, 4), random(1, 4), random(1, 4), random(1, 4), random(1, 4), random(1, 4)],
+                    [random(1, 4), random(1, 4), random(1, 4), random(1, 4), random(1, 4), random(1, 4), random(1, 4), random(1, 4), random(1, 4), random(1, 4)],
+                    [random(1, 4), random(1, 4), random(1, 4), random(1, 4), random(1, 4), random(1, 4), random(1, 4), random(1, 4), random(1, 4), random(1, 4)],
+                    [random(1, 4), random(1, 4), random(1, 4), random(1, 4), random(1, 4), random(1, 4), random(1, 4), random(1, 4), random(1, 4), random(1, 4)],
+                    [random(1, 4), random(1, 4), random(1, 4), random(1, 4), random(1, 4), random(1, 4), random(1, 4), random(1, 4), random(1, 4), random(1, 4)]];
   var block;
 
   for(var y = 0; y < boardState.length; y++) {
+    var subtract = 0;
     for(var x = 0; x < boardState[y].length; x++) {
-      block = blocks.create(x * 64 + 32, y * 32, boardState[y][x]);
+      block = blocks.create(x * 64 + subtract, y * 32, boardState[y][x]);
       block.body.bounce.set(1);
       block.body.immovable = true;
+      
+      if(boardState[y][x] > 3) {
+        subtract -= 32;
+        if(Math.floor(subtract/64) == subtract/64) {
+          boardState[y].push(random(1, 4))
+        }
+      }
     }
   }
   
