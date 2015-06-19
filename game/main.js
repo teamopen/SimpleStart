@@ -85,9 +85,11 @@ function boardgen(){
   
   var unit = 32;
   
-  var boardState = [[random(1, 6), random(1, 6), random(1, 6)],
-                    [random(1, 6), random(1, 6), random(1, 6)],
-                    [random(1, 6), random(1, 6), random(1, 6)]];
+  var boardState = [[random(1, 6), random(1, 6), random(1, 6), random(1, 6), random(1, 6), random(1, 6), random(1, 6), random(1, 6), random(1, 6), random(1, 6)],
+                    [random(1, 6), random(1, 6), random(1, 6), random(1, 6), random(1, 6), random(1, 6), random(1, 6), random(1, 6), random(1, 6), random(1, 6)],
+                    [random(1, 6), random(1, 6), random(1, 6), random(1, 6), random(1, 6), random(1, 6), random(1, 6), random(1, 6), random(1, 6), random(1, 6)],
+                    [random(1, 6), random(1, 6), random(1, 6), random(1, 6), random(1, 6), random(1, 6), random(1, 6), random(1, 6), random(1, 6), random(1, 6)],
+                    [random(1, 6), random(1, 6), random(1, 6), random(1, 6), random(1, 6), random(1, 6), random(1, 6), random(1, 6), random(1, 6), random(1, 6)]];
   var block;
 
   for(var y = 0; y < boardState.length; y++) {
