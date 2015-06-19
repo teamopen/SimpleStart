@@ -7,7 +7,15 @@ var game = new Phaser.Game(640, 640, Phaser.AUTO, 'game_div', {preload: preload,
 function preload(){
   game.load.image('bat', 'assets/img/paddleBlu.png');
   game.load.image('ball', 'assets/img/ballBlue.png');
+  //rectangular blocks
   game.load.image('greenBlock', 'assets/img/element_green_rectangle.png');
+  game.load.image('redBlock', 'assets/img/element_red_rectangle.png');
+  game.load.image('blueBlock', 'assets/img/element_blue_rectangle.png');
+  //square blocks
+  game.load.image('greenSquare', 'assets/img/element_green_square.png');
+  game.load.image('redSquare', 'assets/img/element_red_square.png');
+  game.load.image('blueSquare', 'assets/img/element_blue_square.png');
+  
 }
 
 var blocks;
