@@ -22,7 +22,6 @@ var blocks;
 var player;
 var ball;
 var cursors;
-var lives = 2;
 
 function create(){
   // Game initialization
@@ -38,8 +37,6 @@ function create(){
   ball.body.collideWorldBounds = true;
   
   setBall();
-  
-  ball.events.onOutOfBounds.add(ballFalls, this);
 
   // Initialize the Player's paddle
   player = game.add.sprite(0, 0, 'bat');
@@ -76,9 +73,14 @@ function update(){
   
   game.physics.arcade.collide(ball, blocks, BallHitsBlock, null, this);
   game.physics.arcade.collide(ball, player, BallHitsPlayer, null, this);
+  
+  if(ball.y > player.y+200) {
+    ballFalls();
+  }
 }
 
 function BallHitsPlayer() { };
+
 function BallHitsBlock(_ball, _block) {
   _block.kill();
 }
@@ -134,13 +136,7 @@ function setBall() {
 }
 
 function ballFalls() {
-  lives--;
-  
-  if(lives == 0) {
-    GameOver();
-  } else {
-    setBall();
-  }
+  GameOver();
 }
 
 function GameOver() {
