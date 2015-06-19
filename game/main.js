@@ -59,7 +59,6 @@ function update(){
   }
 }
 
-<<<<<<< HEAD
 function boardgen(){
   
   var unit = 32;
@@ -78,7 +77,7 @@ function boardgen(){
   }
   
 }
-=======
+
 function setBall() {
   
   /* filler 
@@ -98,4 +97,3 @@ function ballFalls() {
     startBall()
   }
 }
->>>>>>> 487ced421d0caaf53f18f97944a8bc7e8314b5fd
