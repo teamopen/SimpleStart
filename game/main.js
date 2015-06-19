@@ -77,20 +77,27 @@ function update(){
   }
 }
 
-function random(start, end) {
-  // Defaults to 0 to end, the number you put for start will be subtracted or added to 0
-  return Math.floor((Math.random() * end) + start)
+function randomBlock() {
+  var num = Math.floor((Math.random() * 5) + 1)
+  
+  if(num != 1) {
+    num = Math.floor((Math.random() * 3) + 1)
+  } else {
+    num = Math.floor((Math.random() * 6) + 3)
+  }
+  
+  return num;
 }
 
 function boardgen(){
   
   var unit = 32;
   
-  var boardState = [[random(1, 4), random(1, 4), random(1, 4), random(1, 4), random(1, 4), random(1, 4), random(1, 4), random(1, 4), random(1, 4), random(1, 4)],
-                    [random(1, 4), random(1, 4), random(1, 4), random(1, 4), random(1, 4), random(1, 4), random(1, 4), random(1, 4), random(1, 4), random(1, 4)],
-                    [random(1, 4), random(1, 4), random(1, 4), random(1, 4), random(1, 4), random(1, 4), random(1, 4), random(1, 4), random(1, 4), random(1, 4)],
-                    [random(1, 4), random(1, 4), random(1, 4), random(1, 4), random(1, 4), random(1, 4), random(1, 4), random(1, 4), random(1, 4), random(1, 4)],
-                    [random(1, 4), random(1, 4), random(1, 4), random(1, 4), random(1, 4), random(1, 4), random(1, 4), random(1, 4), random(1, 4), random(1, 4)]];
+  var boardState = [[randomBlock(), randomBlock(), randomBlock(), randomBlock(), randomBlock(), randomBlock(), randomBlock(), randomBlock(), randomBlock(), randomBlock()],
+                    [randomBlock(), randomBlock(), randomBlock(), randomBlock(), randomBlock(), randomBlock(), randomBlock(), randomBlock(), randomBlock(), randomBlock()],
+                    [randomBlock(), randomBlock(), randomBlock(), randomBlock(), randomBlock(), randomBlock(), randomBlock(), randomBlock(), randomBlock(), randomBlock()],
+                    [randomBlock(), randomBlock(), randomBlock(), randomBlock(), randomBlock(), randomBlock(), randomBlock(), randomBlock(), randomBlock(), randomBlock()],
+                    [randomBlock(), randomBlock(), randomBlock(), randomBlock(), randomBlock(), randomBlock(), randomBlock(), randomBlock(), randomBlock(), randomBlock()]];
   var block;
 
   for(var y = 0; y < boardState.length; y++) {
@@ -103,7 +110,7 @@ function boardgen(){
       if(boardState[y][x] > 3) {
         subtract -= 32;
         if(Math.floor(subtract/64) == subtract/64) {
-          boardState[y].push(random(1, 4))
+          boardState[y].push(randomBlock());
         }
       }
     }
