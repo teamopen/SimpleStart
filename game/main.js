@@ -1,4 +1,4 @@
-
+/*Global Phaser*/
 //First we define our Basic game container variable. This is basic boilerplate.
 //Args: width, height, renderer, and div in the hosting page.
 var game = new Phaser.Game(480,640, Phaser.AUTO, 'game_div', {preload: preload, create: create, update: update});
