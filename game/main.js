@@ -48,12 +48,13 @@ function create(){
 
 function update(){
   cursors = game.input.keyboard.createCursorKeys();
-  
+
   player.body.velocity.x = 0;
+  //moving to the left
   if(cursors.left.isDown || game.input.keyboard.isDown(65)) {
     player.x -= 4;
   }
-  
+  //moving to the right
   if(cursors.right.isDown || game.input.keyboard.isDown(68)){
     player.x += 4;
   }
