@@ -8,10 +8,15 @@ function preload(){
   game.load.image('bat', 'assets/img/paddleBlu.png');
   game.load.image('ball', 'assets/img/ballBlue.png');
   game.load.image('greenBlock', 'assets/img/element_green_rectangle.png')
+  game.load.image('redBlock', 'assets/img/element_red_rectangle.png')
 }
 
 var blocks;
 var player;
+var board = [[0, 1, 0, 2, 0, 1, 0, 2, 0, 1],
+             [2, 0, 1, 0, 2, 0, 1, 0, 2, 0],
+             [0, 2, 0, 1, 0, 2, 0, 1, 0, 2],
+             [1, 0, 2, 0, 1, 0, 2, 0, 1, 0]];
 
 function create(){
   game.physics.startSystem(Phaser.Physics.ARCADE);
@@ -28,9 +33,13 @@ function create(){
 
   var block;
 
-  for(var y = 0; y < 5; y++) {
-    for(var x = 0; x < 19; x++) {
-      block = blocks.create(x * 64 , y * 32, 'greenBlock')
+  for(var y = 0; y < board.length; y++) {
+    for(var x = 0; x < board[y].length; x++) {
+      if (board[y][x] == 1){
+        block = blocks.create(x * 64 , y * 32, 'greenBlock')
+      }else if (board[y][x] == 2){
+        block = blocks.create(x * 64 , y * 32, 'redBlock')
+      }
     }
   }
 }
