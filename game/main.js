@@ -35,15 +35,9 @@ function create(){
   blocks = game.add.group();
   blocks.enableBody = true;
   blocks.physicsBodyType = Phaser.Physics.ARCADE;
+  
+  boardgen();
 
-  var block;
-  for(var y = 0; y < 5; y++) {
-    for(var x = 0; x < 9; x++) {
-      block = blocks.create(x * 64 + 32, y * 32, 'greenBlock');
-      block.body.bounce.set(1);
-      block.body.immovable = true;
-    }
-  }
 }
 
 function update(){
@@ -58,4 +52,23 @@ function update(){
   if((cursors.right.isDown || game.input.keyboard.isDown(68)) && player.x < game.world.width - player.width){
     player.x += 4;
   }
+}
+
+function boardgen(){
+  
+  var unit = 32;
+  
+  var boardState = [['greenBlock', 'greenBlock', 'greenBlock'],
+                    ['greenBlock', 'greenBlock', 'greenBlock'],
+                    ['greenBlock', 'greenBlock', 'greenBlock']];
+  var block;
+
+  for(var y = 0; y < boardState.length; y++) {
+    for(var x = 0; x < boardState[y].length; x++) {
+      block = blocks.create(x * 64 + 32, y * 32, boardState[y][x]);
+      block.body.bounce.set(1);
+      block.body.immovable = true;
+    }
+  }
+  
 }
