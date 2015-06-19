@@ -49,10 +49,10 @@ function create(){
 function update(){
   cursors = game.input.keyboard.createCursorKeys();
   player.body.velocity.x = 0;
-  if(cursors.left.isDown){
+  if(cursors.left.isDown || keyboard.a.isDown){
     player.x -= 4;
   };
-  if(cursors.right.isDown){
+  if(cursors.right.isDown || keyboard.d.isDown){
     player.x += 4;
   }
 }
