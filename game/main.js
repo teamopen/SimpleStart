@@ -27,20 +27,21 @@ function create(){
   player = game.add.sprite(0, 0, 'bat');
   game.physics.enable(player, Phaser.Physics.ARCADE);
   player.x = game.world.centerX - (player.width / 2);
-  player.y = game.world.centerY - (player.Height*2);
+  player.y = game.world.centerY+200;
   player.body.bounce.set(1);
   player.body.immovable = true;
 
   //Initialize the blocks
   blocks = game.add.group();
-  game.physics.enable(blocks, Phaser.Physics.ARCADE);
   blocks.enableBody = true;
-  blocks.body.bounce.set(1);
-  blocks.body.immovable = true;
+  blocks.physicsBodyType = Phaser.Physics.ARCADE;
 
+  var block;
   for(var y = 0; y < 5; y++) {
     for(var x = 0; x < 10; x++) {
-      blocks.create(x * 64 , y * 32, 'greenBlock');
+      block = blocks.create(x * 64 , y * 32, 'greenBlock');
+      block.body.bounce.set(1);
+      block.body.immovable = true;
     }
   }
 }
