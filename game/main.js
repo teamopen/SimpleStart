@@ -39,7 +39,7 @@ function create(){
   
   setBall();
   
-  ball.events.onOutOfBounds.add(ballFalls, this)
+  ball.events.onOutOfBounds.add(ballFalls, this);
 
   // Initialize the Player's paddle
   player = game.add.sprite(0, 0, 'bat');
@@ -78,20 +78,18 @@ function update(){
 }
 
 function randomBlock() {
-  var num = Math.floor((Math.random() * 5) + 1)
+  var num = Math.floor((Math.random() * 5) + 1);
   
   if(num != 1) {
-    num = Math.floor((Math.random() * 3) + 1)
+    num = Math.floor((Math.random() * 3) + 1);
   } else {
-    num = Math.floor((Math.random() * 6) + 3)
+    num = Math.floor((Math.random() * 3) + 4);
   }
   
   return num;
 }
 
 function boardgen(){
-  
-  var unit = 32;
   
   var boardState = [[randomBlock(), randomBlock(), randomBlock(), randomBlock(), randomBlock(), randomBlock(), randomBlock(), randomBlock(), randomBlock(), randomBlock()],
                     [randomBlock(), randomBlock(), randomBlock(), randomBlock(), randomBlock(), randomBlock(), randomBlock(), randomBlock(), randomBlock(), randomBlock()],
@@ -107,8 +105,10 @@ function boardgen(){
       block.body.bounce.set(1);
       block.body.immovable = true;
       
+      // Moves the blocks over if there is a square
       if(boardState[y][x] > 3) {
         subtract -= 32;
+        // For every two square blocks, add another random block.
         if(Math.floor(subtract/64) == subtract/64) {
           boardState[y].push(randomBlock());
         }
@@ -121,8 +121,8 @@ function boardgen(){
 function setBall() {
   
   
-   ball.body.velocity.x = -350
-   ball.body.velocity.y = 75
+   ball.body.velocity.x = -350;
+   ball.body.velocity.y = 75;
    ball.reset(0, 0);
    
   
@@ -132,9 +132,9 @@ function ballFalls() {
   lives--;
   
   if(lives == 0) {
-    GameOver()
+    GameOver();
   } else {
-    setBall()
+    setBall();
   }
 }
 
@@ -142,6 +142,6 @@ function GameOver() {
   ball.body.velocity.x = 0;
   ball.body.velocity.y = 0;
   
-  game.add.text(game.world.centerX, game.world.centerY, 'You lost!', {font: '28px Arial', fill: '#ff0000', align: 'center'})
+  game.add.text(game.world.centerX, game.world.centerY, 'You lost!', {font: '28px Arial', fill: '#ff0000', align: 'center'});
   
 }
