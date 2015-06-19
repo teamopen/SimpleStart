@@ -65,7 +65,7 @@ function update(){
   }
 }
 
-function startBall() {
+function setBall() {
   
   /* filler 
    ball.body.velocity.x =
