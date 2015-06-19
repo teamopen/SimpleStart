@@ -51,11 +51,11 @@ function update(){
 
   player.body.velocity.x = 0;
   //moving to the left
-  if(cursors.left.isDown || game.input.keyboard.isDown(65)) {
+  if((cursors.left.isDown || game.input.keyboard.isDown(65)) && player.x > 0) {
     player.x -= 4;
   }
   //moving to the right
-  if(cursors.right.isDown || game.input.keyboard.isDown(68)){
+  if((cursors.right.isDown || game.input.keyboard.isDown(68)) && player.x < game.world.width - player.width){
     player.x += 4;
   }
 }
