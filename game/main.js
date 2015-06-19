@@ -52,6 +52,10 @@ function create(){
   player.body.bounce.set(1);
   player.body.immovable = true;
 
+  //update the ball position
+  ball.x = game.world.centerX - ball.width /2;
+  ball.y = game.world.centerX + 200 - ball.height;
+
   // Initialize the blocks
   blocks = game.add.group();
   blocks.enableBody = true;
