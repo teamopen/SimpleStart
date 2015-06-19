@@ -34,7 +34,7 @@ function create(){
   
   game.physics.enable(ball, Phaser.Physics.ARCADE);
   
-  ball.body.bounce.set(1);
+  ball.body.bounce.set(1, 1);
   ball.body.collideWorldBounds = true;
   
   setBall();
@@ -43,7 +43,7 @@ function create(){
 
   // Initialize the Player's paddle
   player = game.add.sprite(0, 0, 'bat');
-  
+  player.anchor.setTo(0.5, 0.5);
   game.physics.enable(player, Phaser.Physics.ARCADE);
   
   player.x = game.world.centerX - (player.width / 2);
@@ -65,14 +65,22 @@ function update(){
   cursors = game.input.keyboard.createCursorKeys();
   
   // Moving to the left
-  if((cursors.left.isDown || game.input.keyboard.isDown(65)) && player.x > 0) {
+  if((cursors.left.isDown || game.input.keyboard.isDown(65)) && player.x > player.width/2) {
     player.x -= 4;
   }
   
   // Moving to the right
-  if((cursors.right.isDown || game.input.keyboard.isDown(68)) && player.x < game.world.width - player.width){
+  if((cursors.right.isDown || game.input.keyboard.isDown(68)) && player.x < game.world.width - player.width/2){
     player.x += 4;
   }
+  
+  game.physics.arcade.collide(ball, blocks, BallHitsBlock, null, this);
+  game.physics.arcade.collide(ball, player, BallHitsPlayer, null, this);
+}
+
+function BallHitsPlayer() { };
+function BallHitsBlock(_ball, _block) {
+  _block.kill();
 }
 
 function randomBlock() {
@@ -122,6 +130,7 @@ function setBall() {
    ball.body.velocity.y = -150;
    ball.x = game.world.centerX - ball.width /2;
    ball.y = game.world.centerX + 200 - ball.height;
+   
 }
 
 function ballFalls() {
