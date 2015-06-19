@@ -19,27 +19,28 @@ function create(){
 
   // Initialize the Ball
   ball = game.add.sprite(0, 64, 'ball');
+  game.physics.enable(ball, Phaser.Physics.ARCADE);
   ball.body.bounce.set(1);
   ball.body.collideWorldBounds = true;
   
   //Initialize the Player's paddle
   player = game.add.sprite(0, 0, 'bat');
-  player.x = (game.world.width / 2) - (player.width / 2);
-  player.y = (game.world.height - 128);
+  game.physics.enable(player, Phaser.Physics.ARCADE);
+  player.x = game.world.centerX - (player.width / 2);
+  player.y = game.world.centerY - (player.Height*2);
   player.body.bounce.set(1);
   player.body.immovable = true;
 
   //Initialize the blocks
   blocks = game.add.group();
+  game.physics.enable(blocks, Phaser.Physics.ARCADE);
   blocks.enableBody = true;
-
-  var block;
+  blocks.body.bounce.set(1);
+  blocks.body.immovable = true;
 
   for(var y = 0; y < 5; y++) {
-    for(var x = 0; x < 19; x++) {
-      block = blocks.create(x * 64 , y * 32, 'greenBlock');
-      block.body.bounce.set(1);
-      block.body.immovable = true;
+    for(var x = 0; x < 10; x++) {
+      blocks.create(x * 64 , y * 32, 'greenBlock');
     }
   }
 }
