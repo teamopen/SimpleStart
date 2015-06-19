@@ -8,13 +8,13 @@ function preload(){
   game.load.image('bat', 'assets/img/paddleBlu.png');
   game.load.image('ball', 'assets/img/ballBlue.png');
   //rectangular blocks
-  game.load.image('greenBlock', 'assets/img/element_green_rectangle.png');
-  game.load.image('redBlock', 'assets/img/element_red_rectangle.png');
-  game.load.image('blueBlock', 'assets/img/element_blue_rectangle.png');
+  game.load.image('1', 'assets/img/element_green_rectangle.png');
+  game.load.image('2', 'assets/img/element_red_rectangle.png');
+  game.load.image('3', 'assets/img/element_blue_rectangle.png');
   //square blocks
-  game.load.image('greenSquare', 'assets/img/element_green_square.png');
-  game.load.image('redSquare', 'assets/img/element_red_square.png');
-  game.load.image('blueSquare', 'assets/img/element_blue_square.png');
+  game.load.image('4', 'assets/img/element_green_square.png');
+  game.load.image('5', 'assets/img/element_red_square.png');
+  game.load.image('6', 'assets/img/element_blue_square.png');
   
 }
 
@@ -77,13 +77,17 @@ function update(){
   }
 }
 
+function random(start, end) {
+  // Defaults to 0 to end, the number you put for start will be subtracted or added to 0
+  return Math.floor((Math.random() * end) + start)
+}
 function boardgen(){
   
   var unit = 32;
   
-  var boardState = [['greenBlock', 'greenBlock', 'greenBlock'],
-                    ['greenBlock', 'greenBlock', 'greenBlock'],
-                    ['greenBlock', 'greenBlock', 'greenBlock']];
+  var boardState = [[random(1, 6), random(1, 6), random(1, 6)],
+                    [random(1, 6), random(1, 6), random(1, 6)],
+                    [random(1, 6), random(1, 6), random(1, 6)]];
   var block;
 
   for(var y = 0; y < boardState.length; y++) {
