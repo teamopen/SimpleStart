@@ -26,7 +26,9 @@ var player;
 var ball;
 var cursors;
 var boing;
-var defeat;
+var defeat = false;
+var lives = 3;
+
 function create(){
   // Game initialization
   game.physics.startSystem(Phaser.Physics.ARCADE);
@@ -48,7 +50,7 @@ function create(){
   game.physics.enable(player, Phaser.Physics.ARCADE);
   
   player.x = game.world.centerX - (player.width / 2);
-  player.y = game.world.centerY+200;
+  player.y = game.world.centerY+250;
   
   player.body.bounce.set(1);
   player.body.immovable = true;
@@ -62,7 +64,7 @@ function create(){
   //Initialize the sound
   boing = game.add.audio('boing');
   //Score
-  scoreText = game.add.text(10, 600, 'Score: 0', { fontSize: '32px', fill: '#FFFFFF' });
+  scoreText = game.add.text(10, 600, 'Score: ' + score + "    Lives: " + lives, { fontSize: '32px', fill: '#FFFFFF' });
 }
 
 function update(){
@@ -70,12 +72,12 @@ function update(){
   
   // Moving to the left
   if((cursors.left.isDown || game.input.keyboard.isDown(65)) && player.x > player.width/2) {
-    player.x -= 4;
+    player.x -= 6;
   }
   
   // Moving to the right
   if((cursors.right.isDown || game.input.keyboard.isDown(68)) && player.x < game.world.width - player.width/2){
-    player.x += 4;
+    player.x += 6;
   }
   
   game.physics.arcade.collide(ball, blocks, BallHitsBlock, null, this);
@@ -86,7 +88,9 @@ function update(){
   }
 }
 
-function BallHitsPlayer() { };
+function BallHitsPlayer(_ball, _player) { 
+  _ball.body.velocity.x *= .55 + Math.random();
+}
 
 function BallHitsBlock(_ball, _block) {
   _block.kill();
@@ -145,20 +149,29 @@ function setBall() {
 }
 
 function ballFalls() {
-  GameOver();
+  lives--;
+  scoreText.text = 'Score: ' + score + "    Lives: " + lives;
+  
+  if(lives < 0) {
+    lives = 0;
+    GameOver();
+  } else {
+    setBall();
+  }
 }
 
 function GameOver() {
   ball.body.velocity.x = 0;
   ball.body.velocity.y = 0;
   
-  game.add.text(game.world.centerX, game.world.centerY, 'You lost! Final Score: '+score, {font: '28px Arial', fill: '#ff0000', align: 'center'});
+  game.add.text(game.world.centerX, game.world.centerY, 'You lost! Final Score: '+ score, {font: '28px Arial', fill: '#ff0000', align: 'center'});
+  scoreText.txt = "";
 
 }
 
 function updateScore() {
   
   score += 10;
-  scoreText.text = 'Score: ' + score;
+  scoreText.text = 'Score: ' + score + "    Lives: " + lives;
   
 }
