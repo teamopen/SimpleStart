@@ -76,7 +76,7 @@ function update(){
     
     if (game.input.keyboard.isDown(16)&&score>0){
       player.x -=15;
-      downScore(1);
+      updatePoints(-1);
     }
     else {
     player.x -= 6; 
@@ -89,7 +89,7 @@ function update(){
     
     if (game.input.keyboard.isDown(16)&&score>0){
       player.x +=15;
-      downScore(1);
+      updatePoints(-1);
     }
     else {
     player.x += 6; 
@@ -117,7 +117,7 @@ function BallHitsPlayer(_ball, _player) {
 function BallHitsBlock(_ball, _block) {
   _block.kill();
   boing.play();
-  upScore(10);
+  updatePoints(10);
   blocknum -= 1;
   
 }
@@ -194,19 +194,13 @@ function GameOver() {
 
 }
 
-function upScore(num) {
+function updatePoints(num) {
   
   score += num;
   scoreText.text = 'Score: ' + score + "    Lives: " + lives;
   
 }
 
-function downScore(num) {
-  
-  score -= num;
-  scoreText.text = 'Score: ' + score + "    Lives: " + lives;
-  
-}
 
 function win() {
   ball.body.velocity.x = 0;
