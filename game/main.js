@@ -72,12 +72,28 @@ function update(){
   
   // Moving to the left
   if((cursors.left.isDown || game.input.keyboard.isDown(65)) && player.x > player.width/2) {
-    player.x -= 6;
+    
+    if (game.input.keyboard.isDown(16)&&score>0){
+      player.x -=15;
+      downScore(1);
+    }
+    else {
+    player.x -= 6; 
+    }
+    
   }
   
   // Moving to the right
   if((cursors.right.isDown || game.input.keyboard.isDown(68)) && player.x < game.world.width - player.width/2){
-    player.x += 6;
+    
+    if (game.input.keyboard.isDown(16)&&score>0){
+      player.x +=15;
+      downScore(1);
+    }
+    else {
+    player.x += 6; 
+    }
+    
   }
   
   game.physics.arcade.collide(ball, blocks, BallHitsBlock, null, this);
@@ -95,7 +111,7 @@ function BallHitsPlayer(_ball, _player) {
 function BallHitsBlock(_ball, _block) {
   _block.kill();
   boing.play();
-  updateScore();
+  upScore(10);
 }
 
 function randomBlock() {
@@ -169,9 +185,16 @@ function GameOver() {
 
 }
 
-function updateScore() {
+function upScore(num) {
   
-  score += 10;
+  score += num;
+  scoreText.text = 'Score: ' + score + "    Lives: " + lives;
+  
+}
+
+function downScore(num) {
+  
+  score -= num;
   scoreText.text = 'Score: ' + score + "    Lives: " + lives;
   
 }
