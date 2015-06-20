@@ -26,8 +26,9 @@ var player;
 var ball;
 var cursors;
 var boing;
-var defeat = false;
+var blockPaddle = false;
 var lives = 3;
+var blocknum = 0;
 
 function create(){
   // Game initialization
@@ -71,7 +72,7 @@ function update(){
   cursors = game.input.keyboard.createCursorKeys();
   
   // Moving to the left
-  if((cursors.left.isDown || game.input.keyboard.isDown(65)) && player.x > player.width/2 && defeat===false) {
+  if((cursors.left.isDown || game.input.keyboard.isDown(65)) && player.x > player.width/2 && blockPaddle===false) {
     
     if (game.input.keyboard.isDown(16)&&score>0){
       player.x -=15;
@@ -84,7 +85,7 @@ function update(){
   }
   
   // Moving to the right
-  if((cursors.right.isDown || game.input.keyboard.isDown(68)) && player.x < game.world.width - player.width/2 && defeat===false){
+  if((cursors.right.isDown || game.input.keyboard.isDown(68)) && player.x < game.world.width - player.width/2 && blockPaddle===false){
     
     if (game.input.keyboard.isDown(16)&&score>0){
       player.x +=15;
@@ -102,6 +103,11 @@ function update(){
   if(ball.y > player.y+200) {
     ballFalls();
   }
+  //Win condition
+  if (blocknum===0){
+    win();
+  }
+  
 }
 
 function BallHitsPlayer(_ball, _player) { 
@@ -112,9 +118,12 @@ function BallHitsBlock(_ball, _block) {
   _block.kill();
   boing.play();
   upScore(10);
+  blocknum -= 1;
+  
 }
 
 function randomBlock() {
+  blocknum++;
   var num = Math.floor((Math.random() * 5) + 1);
   
   if(num != 1) {
@@ -179,7 +188,7 @@ function ballFalls() {
 function GameOver() {
   ball.body.velocity.x = 0;
   ball.body.velocity.y = 0;
-  defeat=true;
+  blockPaddle=true;
   game.add.text(game.world.centerX, game.world.centerY, 'You lost! Final Score: '+ score, {font: '28px Arial', fill: '#ff0000', align: 'center'});
   scoreText.txt = "";
 
@@ -197,4 +206,11 @@ function downScore(num) {
   score -= num;
   scoreText.text = 'Score: ' + score + "    Lives: " + lives;
   
+}
+
+function win() {
+  ball.body.velocity.x = 0;
+  ball.body.velocity.y = 0;
+  blockPaddle=true;
+  game.add.text(game.world.centerX, game.world.centerY, 'You won! Final Score: '+ score, {font: '28px Arial', fill: '#FFFFFF', align: 'center'});
 }
