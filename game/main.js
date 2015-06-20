@@ -71,7 +71,7 @@ function update(){
   cursors = game.input.keyboard.createCursorKeys();
   
   // Moving to the left
-  if((cursors.left.isDown || game.input.keyboard.isDown(65)) && player.x > player.width/2) {
+  if((cursors.left.isDown || game.input.keyboard.isDown(65)) && player.x > player.width/2 && defeat===false) {
     
     if (game.input.keyboard.isDown(16)&&score>0){
       player.x -=15;
@@ -84,7 +84,7 @@ function update(){
   }
   
   // Moving to the right
-  if((cursors.right.isDown || game.input.keyboard.isDown(68)) && player.x < game.world.width - player.width/2){
+  if((cursors.right.isDown || game.input.keyboard.isDown(68)) && player.x < game.world.width - player.width/2 && defeat===false){
     
     if (game.input.keyboard.isDown(16)&&score>0){
       player.x +=15;
@@ -179,7 +179,7 @@ function ballFalls() {
 function GameOver() {
   ball.body.velocity.x = 0;
   ball.body.velocity.y = 0;
-  
+  defeat=true;
   game.add.text(game.world.centerX, game.world.centerY, 'You lost! Final Score: '+ score, {font: '28px Arial', fill: '#ff0000', align: 'center'});
   scoreText.txt = "";
 
