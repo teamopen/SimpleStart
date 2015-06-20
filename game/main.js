@@ -19,7 +19,7 @@ function preload(){
   game.load.audio('boing', 'assets/snd/phaserUp3.ogg');
   
 }
-var score = 0;
+var points;
 var scoreText;
 var blocks;
 var player;
@@ -27,15 +27,17 @@ var ball;
 var cursors;
 var boing;
 var blockPaddle = false;
-var lives = 3;
-var blocknum = 0;
+var lives;
+var blocknum;
 
 function create(){
   // Game initialization
   game.physics.startSystem(Phaser.Physics.ARCADE);
   game.physics.arcade.checkCollision.down = false;
   
-  // Initialize the Ball
+  lives = 3;
+  points= 0;
+  blocknum=0;
   ball = game.add.sprite(0, 0, 'ball');
   
   game.physics.enable(ball, Phaser.Physics.ARCADE);
@@ -65,7 +67,8 @@ function create(){
   //Initialize the sound
   boing = game.add.audio('boing');
   //Score
-  scoreText = game.add.text(10, 600, 'Score: ' + score + "    Lives: " + lives, { fontSize: '32px', fill: '#FFFFFF' });
+  scoreText = game.add.text(10, 600, 'Points: ' + points + "    Lives: " + lives, { fontSize: '32px', fill: '#FFFFFF' });
+  
 }
 
 function update(){
@@ -74,7 +77,7 @@ function update(){
   // Moving to the left
   if((cursors.left.isDown || game.input.keyboard.isDown(65)) && player.x > player.width/2 && blockPaddle===false) {
     
-    if (game.input.keyboard.isDown(16)&&score>0){
+    if (game.input.keyboard.isDown(16)&&points>0){
       player.x -=15;
       updatePoints(-1);
     }
@@ -87,7 +90,7 @@ function update(){
   // Moving to the right
   if((cursors.right.isDown || game.input.keyboard.isDown(68)) && player.x < game.world.width - player.width/2 && blockPaddle===false){
     
-    if (game.input.keyboard.isDown(16)&&score>0){
+    if (game.input.keyboard.isDown(16)&&points>0){
       player.x +=15;
       updatePoints(-1);
     }
@@ -96,7 +99,13 @@ function update(){
     }
     
   }
-  
+
+
+  //Pressing R restarts the game
+  if(game.input.keyboard.isDown(82)) {
+    newGame();
+  }
+
   game.physics.arcade.collide(ball, blocks, BallHitsBlock, null, this);
   game.physics.arcade.collide(ball, player, BallHitsPlayer, null, this);
   
@@ -175,7 +184,7 @@ function setBall() {
 
 function ballFalls() {
   lives--;
-  scoreText.text = 'Score: ' + score + "    Lives: " + lives;
+  scoreText.text = 'Points: ' + points + "    Lives: " + lives;
   
   if(lives < 0) {
     lives = 0;
@@ -189,15 +198,15 @@ function GameOver() {
   ball.body.velocity.x = 0;
   ball.body.velocity.y = 0;
   blockPaddle=true;
-  game.add.text(game.world.centerX, game.world.centerY, 'You lost! Final Score: '+ score, {font: '28px Arial', fill: '#ff0000', align: 'center'});
+  game.add.text(game.world.centerX, game.world.centerY, 'You lost! Final Score: '+ points, {font: '28px Arial', fill: '#ff0000', align: 'center'});
   scoreText.txt = "";
 
 }
 
 function updatePoints(num) {
   
-  score += num;
-  scoreText.text = 'Score: ' + score + "    Lives: " + lives;
+  points += num;
+  scoreText.text = 'Points: ' + points + "    Lives: " + lives;
   
 }
 
@@ -206,5 +215,10 @@ function win() {
   ball.body.velocity.x = 0;
   ball.body.velocity.y = 0;
   blockPaddle=true;
-  game.add.text(game.world.centerX, game.world.centerY, 'You won! Final Score: '+ score, {font: '28px Arial', fill: '#FFFFFF', align: 'center'});
+  game.add.text(game.world.centerX, game.world.centerY, 'You won! Final Score: '+ points, {font: '28px Arial', fill: '#FFFFFF', align: 'center'});
+}
+
+function newGame() {
+  game.world.removeAll()
+  create();
 }
