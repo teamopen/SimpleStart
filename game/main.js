@@ -198,7 +198,7 @@ function GameOver() {
   ball.body.velocity.x = 0;
   ball.body.velocity.y = 0;
   blockPaddle=true;
-  game.add.text(game.world.centerX, game.world.centerY, 'You lost! Final Score: '+ points, {font: '28px Arial', fill: '#ff0000', align: 'center'});
+  game.add.text(game.world.centerX - 200, game.world.centerY, 'You lost! Final Score: '+ points, {font: '28px Arial', fill: '#ff0000', align: 'center'});
   scoreText.txt = "";
 
 }
@@ -215,7 +215,7 @@ function win() {
   ball.body.velocity.x = 0;
   ball.body.velocity.y = 0;
   blockPaddle=true;
-  game.add.text(game.world.centerX, game.world.centerY, 'You won! Final Score: '+ points, {font: '28px Arial', fill: '#FFFFFF', align: 'center'});
+  game.add.text(game.world.centerX - 200, game.world.centerY, 'You won! Final Score: '+ points, {font: '28px Arial', fill: '#FFFFFF', align: 'center'});
 }
 
 function newGame() {
