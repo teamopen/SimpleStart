@@ -38,6 +38,7 @@ function create(){
   lives = 3;
   points= 0;
   blocknum=0;
+  blockPaddle = false;
   ball = game.add.sprite(0, 0, 'ball');
   
   game.physics.enable(ball, Phaser.Physics.ARCADE);
